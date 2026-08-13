@@ -31,6 +31,28 @@ VOICE / GUITAR / TOUCH / MIDI / AUDIO / VIDEO
 
 The six named macros are artistic musical controls, not claims that the program measures literal physical gravity, biological life or thermodynamic entropy.
 
+## 📦 Download v0.2.0 — packaged edition
+
+**GitHub Release:** https://github.com/NavisWORLD/REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED/releases/tag/v0.2.0
+
+| End-user target | Status | Published artifact |
+|---|---|---|
+| Windows one-click installer | ✅ | `Cosmic-Conductor-Engine-Setup-v0.2.0.exe` |
+| Windows portable app | ✅ | `Cosmic-Conductor-Portable-v0.2.0.exe` |
+| macOS app | ✅ | `Cosmic-Conductor-macOS-v0.2.0.app.zip` |
+| macOS disk image | ✅ | `Cosmic-Conductor-Engine-v0.2.0.dmg` |
+| Linux x86_64 bundle | ✅ | `Cosmic-Conductor-Linux-x86_64-v0.2.0.tar.gz` |
+| Android application | ✅ | `Cosmic-Conductor-Android-v0.2.0.apk` |
+| iPhone/iPad native app build | ✅ | `Cosmic-Conductor-iOS-Simulator-v0.2.0.app.zip` + Capacitor/Xcode device project |
+| iPhone/iPad no-signing install path | ✅ | installable HTTPS PWA package |
+| Web/PWA package | ✅ | `Cosmic-Conductor-Web-PWA-v0.2.0.zip` |
+| Full source package | ✅ | `Cosmic-Conductor-Engine-Source-v0.2.0.zip` |
+| GitHub Release with binaries | ✅ | release `v0.2.0` + `SHA256SUMS.txt` |
+
+The native iOS project is real and the CI-built Simulator `.app` is published. Installing a native app on a physical iPhone or shipping through the App Store additionally requires the publisher's Apple Developer signing certificate/provisioning profile; those private credentials are deliberately not committed to this public repository. The PWA is the zero-signing iPhone/iPad install route. The macOS build is ad-hoc signed but not Apple-notarized; notarization likewise requires the publisher's Apple Developer identity.
+
+See [`docs/INSTALLERS_AND_RELEASES.md`](docs/INSTALLERS_AND_RELEASES.md) for packaging and signing details.
+
 ## 🚀 Pick your doorway
 
 ### Browser / phone / tablet
@@ -83,18 +105,22 @@ The C++ engine keeps the original physical-model DSP, bounded limiter, frequency
 | Rust C ABI | ✅ Implemented | `cc_*` interface for non-Rust hosts |
 | C++ DSP core | ✅ Implemented | native physical-model engine and C ABI |
 | JUCE adapter | 🧩 Source target included | VST3/AU/Standalone requires JUCE + platform SDK |
-| PWA | ✅ Implemented | hosted installable web-app path |
-| Android/iOS wrapper | 🧩 Source included | Capacitor + platform SDK/signing |
+| PWA | ✅ Packaged | installable web-app bundle published in v0.2.0 |
+| Android application | ✅ Packaged | installable APK published in v0.2.0 |
+| iOS application | ✅ Built | Capacitor/Xcode app + CI-built Simulator `.app`; device/App Store signing needs publisher credentials |
+| Windows installer | ✅ Packaged | Inno Setup one-click `.exe` published in v0.2.0 |
+| macOS application | ✅ Packaged | `.app.zip` and `.dmg` published in v0.2.0 |
+| Binary GitHub Release | ✅ Published | multi-platform v0.2.0 assets + SHA-256 manifest |
 | Perfect source separation | ❌ Not claimed | structural analysis is not fake stem extraction |
 | Exact song recognition | ❌ Not claimed | harmony/pitch interpretation remains inference |
 
 ## 🖥️ Platform family
 
-- Windows — Python, Rust, C++, PWA, JUCE/VST3 path
-- macOS — Python, Rust, C++, PWA, JUCE AU/VST3 path
-- Linux — Python, Rust, C++, PWA
-- iPhone/iPad — PWA, Capacitor, Rust/C++ native library path
-- Android — PWA, Capacitor, Rust/C++ JNI/NDK path
+- Windows — packaged installer/portable app + Python + Rust + C++ + PWA + JUCE/VST3 path
+- macOS — packaged `.app`/`.dmg` + Python + Rust + C++ + PWA + JUCE AU/VST3 path
+- Linux — packaged x86_64 bundle + Python/Rust/C++/PWA
+- iPhone/iPad — Capacitor/Xcode app, Simulator artifact and PWA; physical native distribution requires Apple signing
+- Android — packaged installable APK + Capacitor + Rust/C++ JNI/NDK path
 - ARM Linux/Raspberry Pi — Python/Rust/C++/PWA where the platform toolchain supports them
 - DAWs — MIDI bridge or JUCE adapter
 - game/research engines — C ABI, Python, or Rust library
@@ -126,7 +152,7 @@ MEASUREMENT → INFERENCE → MAPPING → SYNTHESIS
 ```
 
 ## 🧪 Verification
-Core CI tests Python, Rust, C++, standalone reconstruction and HTML auditing. A second GitHub Actions matrix compiles/tests the native engine family on Ubuntu, macOS and Windows. Real phones, microphones, audio interfaces, DAWs and store-signing configurations still require target-device acceptance tests.
+Core CI tests Python, Rust, C++, standalone reconstruction and HTML auditing. Cross-platform GitHub Actions compile/test the native engine family on Ubuntu, macOS and Windows, and target-check Rust for Android ARM64, iOS ARM64, WebAssembly and ARM Linux. The v0.2.0 packaging workflow has successfully built Windows, macOS, Linux, Android, Web/PWA and iOS Simulator artifacts; the published release collects the verified results with cryptographic SHA-256 digests. Real microphones, audio interfaces, DAWs, notarization and store-signing configurations still require target-device/publisher acceptance tests.
 
 ## 📦 Repository map
 ```text
@@ -137,11 +163,12 @@ Core CI tests Python, Rust, C++, standalone reconstruction and HTML auditing. A 
 ├── cpp/                    # native C++ DSP + C ABI
 ├── plugins/juce/           # VST3 / AU / Standalone adapter
 ├── integrations/           # MIDI, protocol and host examples
-├── app/                    # desktop launcher + Capacitor mobile wrapper
+├── app/                    # frozen desktop launcher + Capacitor mobile wrapper
+├── packaging/              # Windows installer and packaging assets
 ├── web/                    # verified standalone source archive
 ├── docs/                   # book, teacher manual, specs and guides
 ├── scripts/                # Windows/macOS/Linux bootstrap
-└── .github/workflows/      # CI and cross-platform verification
+└── .github/workflows/      # CI, device checks, packaging and release publication
 ```
 
 ## 🛡️ License and engineering honesty
