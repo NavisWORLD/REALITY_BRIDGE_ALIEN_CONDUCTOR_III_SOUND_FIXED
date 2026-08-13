@@ -1,8 +1,13 @@
 import type { CapacitorConfig } from '@capacitor/cli';
+
 const config: CapacitorConfig = {
-  appId: 'world.navis.realitybridge.alienconductor',
-  appName: 'Reality Bridge Alien Conductor',
+  appId: 'world.navis.cosmicconductor',
+  appName: 'Cosmic Conductor',
   webDir: 'www',
-  server: { androidScheme: 'https' }
+  server: {
+    androidScheme: 'https',
+    hostname: 'localhost'
+  }
 };
+
 export default config;

@@ -1,0 +1,235 @@
+name: Package and Release v0.2.0
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - 'packaging/**'
+      - '.github/workflows/package-release.yml'
+      - 'REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED.html'
+      - 'index.html'
+      - 'manifest.webmanifest'
+      - 'sw.js'
+      - 'icon.svg'
+
+env:
+  VERSION: '0.2.0'
+
+permissions:
+  contents: write
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Reconstruct and audit standalone
+        run: |
+          python tools/reconstruct_standalone.py
+          node tools/audit_html.mjs
+      - name: Package web and source
+        run: |
+          mkdir -p release/web
+          zip -j "release/web/Cosmic-Conductor-Web-PWA-v${VERSION}.zip" index.html REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED.html manifest.webmanifest sw.js icon.svg
+          git archive --format=zip --output="release/web/Cosmic-Conductor-Engine-Source-v${VERSION}.zip" HEAD
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-source
+          path: release/web/*
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with: {toolchain: stable}
+      - name: Build frozen desktop app
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip pyinstaller
+          pyinstaller --clean --noconfirm --onefile --windowed --name CosmicConductor --add-data "index.html;www" --add-data "REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED.html;www" --add-data "manifest.webmanifest;www" --add-data "sw.js;www" --add-data "icon.svg;www" app/desktop_entry.py
+      - name: Build Rust and C++ SDK binaries
+        shell: pwsh
+        run: |
+          cargo build --release --manifest-path rust/Cargo.toml
+          cmake -S cpp -B build/cpp -DRB_BUILD_SHARED=ON -DRB_BUILD_TESTS=OFF
+          cmake --build build/cpp --config Release --parallel 2
+      - name: Build one-click installer
+        shell: pwsh
+        run: |
+          choco install innosetup --no-progress -y
+          New-Item -ItemType Directory -Force release/windows | Out-Null
+          Copy-Item dist/CosmicConductor.exe "release/windows/Cosmic-Conductor-Portable-v${env:VERSION}.exe"
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" packaging/windows/CosmicConductor.iss
+          Copy-Item rust/target/release/cosmic-conductor.exe "release/windows/cosmic-conductor-rust-cli-v${env:VERSION}.exe"
+          Get-ChildItem rust/target/release -Filter *.dll -ErrorAction SilentlyContinue | ForEach-Object { Copy-Item $_.FullName "release/windows/$($_.Name)" }
+          Get-ChildItem build/cpp -Recurse -Filter *.dll -ErrorAction SilentlyContinue | ForEach-Object { Copy-Item $_.FullName "release/windows/$($_.Name)" }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: release/windows/*
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with: {toolchain: stable}
+      - name: Build app
+        run: |
+          python -m pip install --upgrade pip pyinstaller
+          pyinstaller --clean --noconfirm --onefile --windowed --name "Cosmic Conductor" --add-data "index.html:www" --add-data "REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED.html:www" --add-data "manifest.webmanifest:www" --add-data "sw.js:www" --add-data "icon.svg:www" app/desktop_entry.py
+          codesign --force --deep --sign - "dist/Cosmic Conductor.app"
+      - name: Build Rust and C++ SDK binaries
+        run: |
+          cargo build --release --manifest-path rust/Cargo.toml
+          cmake -S cpp -B build/cpp -DRB_BUILD_SHARED=ON -DRB_BUILD_TESTS=OFF
+          cmake --build build/cpp --config Release --parallel 2
+      - name: Package DMG and app
+        run: |
+          mkdir -p release/macos
+          ditto -c -k --sequesterRsrc --keepParent "dist/Cosmic Conductor.app" "release/macos/Cosmic-Conductor-macOS-v${VERSION}.app.zip"
+          hdiutil create -volname "Cosmic Conductor" -srcfolder "dist/Cosmic Conductor.app" -ov -format UDZO "release/macos/Cosmic-Conductor-Engine-v${VERSION}.dmg"
+          cp rust/target/release/cosmic-conductor "release/macos/cosmic-conductor-rust-cli-v${VERSION}"
+          find rust/target/release -maxdepth 1 -name '*.dylib' -exec cp {} release/macos/ \;
+          find build/cpp -name '*.dylib' -exec cp {} release/macos/ \;
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          path: release/macos/*
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with: {toolchain: stable}
+      - name: Build desktop and SDK binaries
+        run: |
+          python -m pip install --upgrade pip pyinstaller
+          pyinstaller --clean --noconfirm --onefile --name cosmic-conductor --add-data "index.html:www" --add-data "REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED.html:www" --add-data "manifest.webmanifest:www" --add-data "sw.js:www" --add-data "icon.svg:www" app/desktop_entry.py
+          cargo build --release --manifest-path rust/Cargo.toml
+          cmake -S cpp -B build/cpp -DRB_BUILD_SHARED=ON -DRB_BUILD_TESTS=OFF
+          cmake --build build/cpp --parallel 2
+      - name: Package Linux bundle
+        run: |
+          mkdir -p release/linux/bundle
+          cp dist/cosmic-conductor release/linux/bundle/
+          cp rust/target/release/cosmic-conductor release/linux/bundle/cosmic-conductor-rust-cli
+          find rust/target/release -maxdepth 1 -name '*.so' -exec cp {} release/linux/bundle/ \;
+          find build/cpp -name '*.so' -exec cp {} release/linux/bundle/ \;
+          tar -C release/linux -czf "release/linux/Cosmic-Conductor-Linux-x86_64-v${VERSION}.tar.gz" bundle
+          rm -rf release/linux/bundle
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: release/linux/*
+
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Prepare Capacitor Android app
+        run: |
+          python app/prepare_mobile.py
+          cd app/capacitor
+          npm install
+          npx cap add android
+          npx cap sync android
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('android/app/src/main/AndroidManifest.xml')
+          s=p.read_text()
+          if 'android.permission.RECORD_AUDIO' not in s:
+              i=s.find('>')
+              s=s[:i+1]+'\n    <uses-permission android:name="android.permission.RECORD_AUDIO" />'+s[i+1:]
+          p.write_text(s)
+          PY
+      - name: Build installable APK
+        run: |
+          cd app/capacitor/android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+          cd ../../..
+          mkdir -p release/android
+          cp app/capacitor/android/app/build/outputs/apk/debug/app-debug.apk "release/android/Cosmic-Conductor-Android-v${VERSION}.apk"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: release/android/*
+
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Prepare Capacitor iOS app
+        run: |
+          python app/prepare_mobile.py
+          cd app/capacitor
+          npm install
+          npx cap add ios
+          npx cap sync ios
+          /usr/libexec/PlistBuddy -c "Add :NSMicrophoneUsageDescription string Cosmic Conductor uses the microphone only when you enable live voice or guitar listening." ios/App/App/Info.plist || /usr/libexec/PlistBuddy -c "Set :NSMicrophoneUsageDescription Cosmic Conductor uses the microphone only when you enable live voice or guitar listening." ios/App/App/Info.plist
+      - name: Build iOS Simulator app
+        run: |
+          cd app/capacitor
+          if [ -d ios/App/App.xcworkspace ]; then
+            xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release -sdk iphonesimulator -derivedDataPath build/ios CODE_SIGNING_ALLOWED=NO build
+          else
+            xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release -sdk iphonesimulator -derivedDataPath build/ios CODE_SIGNING_ALLOWED=NO build
+          fi
+          APP_PATH=$(find build/ios/Build/Products -type d -name '*.app' | head -n 1)
+          test -n "$APP_PATH"
+          mkdir -p ../../release/ios
+          ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "../../release/ios/Cosmic-Conductor-iOS-Simulator-v${VERSION}.app.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ios
+          path: release/ios/*
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [web, windows, macos, linux, android, ios]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: release
+          merge-multiple: true
+      - name: Checksums
+        run: |
+          cd release
+          find . -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mapfile -t files < <(find release -type f -maxdepth 2 | sort)
+          if gh release view "v${VERSION}" >/dev/null 2>&1; then
+            gh release upload "v${VERSION}" "${files[@]}" --clobber
+          else
+            gh release create "v${VERSION}" "${files[@]}" --target "${GITHUB_SHA}" --title "Cosmic Conductor Engine v${VERSION}" --notes-file RELEASE_NOTES_v0.2.0.md
+          fi

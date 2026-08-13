@@ -1,4 +1,4 @@
-const CACHE='reality-bridge-v0.1.0';
+const CACHE='cosmic-conductor-v0.2.0';
 const ASSETS=['./','./index.html','./REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED.html','./manifest.webmanifest','./icon.svg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
