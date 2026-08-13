@@ -1,0 +1,47 @@
+name: Publish verified v0.2.0 binaries
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-v0.2.0.yml']
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+env:
+  VERSION: '0.2.0'
+  VERIFIED_RUN: '31672569887'
+  IOS_RUN: '31672305967'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download verified platform artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p release
+          for name in windows macos linux android web-source; do
+            gh run download "$VERIFIED_RUN" --name "$name" --dir release
+          done
+          gh run download "$IOS_RUN" --name ios --dir release
+          find release -type f -maxdepth 2 -print | sort
+      - name: Generate SHA-256 manifest
+        run: |
+          cd release
+          find . -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+      - name: Create packaged GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mapfile -t files < <(find release -type f | sort)
+          if gh release view "v${VERSION}" >/dev/null 2>&1; then
+            gh release upload "v${VERSION}" "${files[@]}" --clobber
+          else
+            gh release create "v${VERSION}" "${files[@]}" --target "4a4bbc94312f4c11dd40b4f5074cb75ee6bf4549" --title "Cosmic Conductor Engine v${VERSION}" --notes-file RELEASE_NOTES_v0.2.0.md
+          fi
