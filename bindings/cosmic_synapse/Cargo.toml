@@ -1,0 +1,14 @@
+[package]
+name = "cosmic-synapse"
+version = "0.3.0"
+edition = "2021"
+authors = ["Cory Davis"]
+description = "Dependency-free implementation of Reality Bridge Synaptic Core v1"
+license = "Apache-2.0"
+repository = "https://github.com/NavisWORLD/REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED"
+
+[lib]
+name = "cosmic_synapse"
+path = "src/lib.rs"
+
+[dependencies]
