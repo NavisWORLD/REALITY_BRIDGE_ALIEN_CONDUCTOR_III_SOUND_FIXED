@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED.html', 'index.html', 'manifest.webmanifest', 'sw.js', 'icon.svg']
+    paths: ['REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED.html', 'index.html', 'manifest.webmanifest', 'sw.js', 'icon.svg', '.github/workflows/pages.yml']
 permissions:
   contents: read
   pages: write
@@ -20,6 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with: {path: .}
       - name: Deploy
