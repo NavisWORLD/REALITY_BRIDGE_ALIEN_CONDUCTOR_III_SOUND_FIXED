@@ -1,9 +1,9 @@
-# App packaging
+# Cosmic Conductor app paths
 
-The repo ships three practical app paths.
+1. **PWA:** host the repository through HTTPS and open `index.html`.
+2. **Desktop launcher:** `python app/reality_bridge_app.py`.
+3. **Native mobile wrapper:** `app/capacitor/` for Android/iOS.
 
-1. **PWA / any modern browser** — deploy the repository root over HTTPS and choose *Add to Home Screen / Install App*.
-2. **Desktop** — run `python app/reality_bridge_app.py`. It serves the instrument on localhost so browser audio/microphone permissions behave predictably.
-3. **Android/iOS wrapper** — run `python app/prepare_mobile.py`, then from `app/capacitor` run `npm install`, `npx cap add android` or `npx cap add ios`, and `npx cap sync`. Open the native project with Android Studio/Xcode and sign it with your own credentials.
+Prepare mobile assets with `python app/prepare_mobile.py`, then use Capacitor plus Android Studio/Xcode. Store signing credentials are intentionally not committed.
 
-The repository does **not** include platform signing certificates or claim that unsigned source is a store-ready binary. iOS builds require macOS/Xcode; Android builds require the Android SDK.
+A non-WebView native host can embed either `rust/` through the `cc_*` ABI or `cpp/` through the `rb_*` ABI. See `docs/DEVICE_BUILD_GUIDE.md`.

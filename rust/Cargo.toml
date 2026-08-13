@@ -1,0 +1,25 @@
+[package]
+name = "cosmic-conductor"
+version = "0.2.0"
+edition = "2021"
+authors = ["Cory Davis"]
+description = "Cross-platform musical state, physical-model DSP and C ABI for Reality Bridge Cosmic Conductor Engine"
+license = "Apache-2.0"
+repository = "https://github.com/NavisWORLD/REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED"
+readme = "README.md"
+keywords = ["music", "dsp", "midi", "audio", "generative"]
+categories = ["multimedia::audio", "multimedia"]
+
+[lib]
+name = "cosmic_conductor"
+crate-type = ["rlib", "cdylib", "staticlib"]
+
+[[bin]]
+name = "cosmic-conductor"
+path = "src/bin/cosmic-conductor.rs"
+
+[features]
+default = []
+cpp-bridge = []
+
+[dependencies]

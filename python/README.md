@@ -1,10 +1,14 @@
-# Reality Bridge Python engine
+# Reality Bridge // Cosmic Conductor Engine — Python
 
-Host-neutral musical state, Voice DNA / Media DNA models, harmony hypotheses, accompaniment planning, a dependency-free WAV lab analyzer, local web launcher and optional MIDI bridge.
+The Python layer is for orchestration, analysis, musical-state planning, automation, MIDI, teaching and host integration.
 
 ```bash
-python -m pip install -e .
-reality-bridge demo
+python -m pip install -e './python[test]'
+cosmic-conductor demo
 ```
 
-Optional MIDI: `python -m pip install -e '.[midi]'`.
+Optional MIDI: `python -m pip install -e './python[midi]'`.
+
+The historical `reality-bridge` CLI remains available for compatibility.
+
+Native C++ DSP can be loaded with `from reality_bridge.native import NativeString`. See `INSTALL.md` and `examples/`.
