@@ -1,0 +1,44 @@
+{
+  "name": "Reality Bridge Synaptic Core Contract",
+  "contract_version": 1,
+  "release": "0.3.0",
+  "purpose": "A deterministic, host-neutral software state element for signal memory, coupling and reward-modulated adaptation.",
+  "scope": "Biologically inspired naming only; this contract does not claim to reproduce a biological synapse, nervous system or consciousness.",
+  "numeric_type": "IEEE-754 binary64",
+  "defaults": {
+    "decay": 2.0,
+    "trace_decay": 1.0,
+    "threshold": 0.15,
+    "gain": 1.0,
+    "plasticity": 0.05,
+    "weight_min": 0.1,
+    "weight_max": 2.0,
+    "target_activity": 0.35,
+    "homeostasis": 0.02
+  },
+  "state": ["potential", "activation", "trace", "weight", "pending_coupling", "last_input", "last_output", "threshold_offset", "tick"],
+  "ranges": {
+    "input": [-4.0, 4.0],
+    "modulation": [-4.0, 4.0],
+    "source_output": [-1.0, 1.0],
+    "coupling_strength": [-2.0, 2.0],
+    "reward": [-1.0, 1.0],
+    "activation": [-1.0, 1.0]
+  },
+  "pulse": [
+    "dt = clamp(finite(dt), 1e-6, 1.0)",
+    "potential_decay = exp(-decay * dt)",
+    "trace_decay_factor = exp(-trace_decay * dt)",
+    "drive = input * weight + pending_coupling + modulation * trace",
+    "potential = potential * potential_decay + drive * (1 - potential_decay)",
+    "activation = tanh(gain * (potential - (threshold + threshold_offset)))",
+    "trace = trace * trace_decay_factor + activation * (1 - trace_decay_factor)",
+    "threshold_offset = clamp(threshold_offset + homeostasis * (abs(activation) - target_activity) * dt, -2, 2)",
+    "pending_coupling = 0",
+    "tick += 1"
+  ],
+  "reinforcement": "weight = clamp(weight + plasticity * reward * trace * last_input, weight_min, weight_max)",
+  "compatibility_rule": "Ports must preserve defaults, clamps, update order and conformance vector within documented floating-point tolerance.",
+  "reference_implementations": ["cpp", "python"],
+  "planned_reference_implementation": "rust"
+}
