@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "reality-bridge"
-version = "0.2.0"
-description = "Host-neutral musical state, media DNA, MIDI and native bridge for Reality Bridge Cosmic Conductor Engine"
+version = "0.3.0"
+description = "Host-neutral musical state, Media DNA, Synaptic Core, MIDI and native bridge for Reality Bridge Cosmic Conductor Engine"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
 authors = [{name="Cory Davis"}]
-keywords = ["music", "midi", "generative-music", "web-audio", "dsp", "cosmic-conductor"]
+keywords = ["music", "midi", "generative-music", "web-audio", "dsp", "synaptic", "cosmic-conductor"]
 
 [project.optional-dependencies]
 midi = ["mido>=1.3", "python-rtmidi>=1.5"]
