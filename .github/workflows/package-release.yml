@@ -156,11 +156,15 @@ jobs:
           npx cap sync android
           python - <<'PY'
           from pathlib import Path
-          p=Path('android/app/src/main/AndroidManifest.xml')
-          s=p.read_text()
+          p = Path('android/app/src/main/AndroidManifest.xml')
+          s = p.read_text()
           if 'android.permission.RECORD_AUDIO' not in s:
-              i=s.find('>')
-              s=s[:i+1]+'\n    <uses-permission android:name="android.permission.RECORD_AUDIO" />'+s[i+1:]
+              start = s.find('<manifest')
+              end = s.find('>', start)
+              if start < 0 or end < 0:
+                  raise RuntimeError('Could not find Android <manifest> root')
+              permission = '\n    <uses-permission android:name="android.permission.RECORD_AUDIO" />'
+              s = s[:end + 1] + permission + s[end + 1:]
           p.write_text(s)
           PY
       - name: Build installable APK
