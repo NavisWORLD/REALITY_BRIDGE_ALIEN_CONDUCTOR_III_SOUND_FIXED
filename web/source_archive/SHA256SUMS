@@ -1,0 +1,5 @@
+# Reality Bridge standalone source integrity
+# Concatenate standalone.gz.b64.01 .. .08 with no added bytes, base64-decode, then gzip-decompress.
+3e20b1b840b21c77e2001808b804ec9b0b242431446ebbc2539daff5e159b7f9  standalone.gz.b64.concatenated
+2924b9abd060dc15d11f8c81a9340931e2d5267ed8f9dc023b62b170faf7ae4b  standalone.html.gz
+a23304613961f05f3c2ec08d16ed12ef1ea9d4dbc7a770da3742982843a62ac6  REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED.html

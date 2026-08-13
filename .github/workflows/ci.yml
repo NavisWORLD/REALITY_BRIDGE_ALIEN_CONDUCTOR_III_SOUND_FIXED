@@ -1,0 +1,26 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Python tests
+        run: |
+          python -m pip install -e './python[test]'
+          pytest -q python/tests
+      - name: C++ build and tests
+        run: |
+          cmake -S cpp -B build/cpp -DRB_BUILD_SHARED=ON -DRB_BUILD_TESTS=ON
+          cmake --build build/cpp --parallel 2
+          ctest --test-dir build/cpp --output-on-failure
+      - name: Reconstruct standalone HTML
+        run: python tools/reconstruct_standalone.py
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: HTML audit
+        run: node tools/audit_html.mjs

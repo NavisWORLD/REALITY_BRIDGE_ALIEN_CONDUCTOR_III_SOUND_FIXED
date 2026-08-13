@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+build/
+dist/
+*.egg-info/
+node_modules/
+app/capacitor/www/
+app/capacitor/android/
+app/capacitor/ios/
+*.wav
+.DS_Store
+.idea/
+.vscode/

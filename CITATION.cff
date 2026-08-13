@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "Reality Bridge Alien Conductor III"
+message: "If you use this software, please cite the repository and the archived release when one is available."
+type: software
+authors:
+  - family-names: Davis
+    given-names: Cory
+repository-code: "https://github.com/NavisWORLD/REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED"
+url: "https://github.com/NavisWORLD/REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED"
+version: 0.1.0
+date-released: 2026-08-12
+license: Apache-2.0

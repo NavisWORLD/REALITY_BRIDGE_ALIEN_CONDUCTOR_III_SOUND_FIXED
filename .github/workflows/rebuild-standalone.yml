@@ -1,0 +1,31 @@
+name: Rebuild Standalone HTML
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/source_archive/**'
+      - 'tools/reconstruct_standalone.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Reconstruct verified standalone
+        run: python tools/reconstruct_standalone.py
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Audit reconstructed HTML
+        run: node tools/audit_html.mjs
+      - name: Commit generated standalone
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED.html
+          git diff --cached --quiet || git commit -m 'Generate standalone HTML from verified source archive'
+          git push

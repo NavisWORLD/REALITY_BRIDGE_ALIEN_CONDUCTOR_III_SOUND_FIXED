@@ -1,0 +1,12 @@
+{
+  "name": "Reality Bridge Alien Conductor III",
+  "short_name": "Alien Conductor",
+  "description": "Handheld generative instrument, Gravity Guitar, live voice co-musician and local Media DNA transmuter.",
+  "start_url": "./REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#030507",
+  "theme_color": "#030507",
+  "orientation": "any",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
