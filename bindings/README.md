@@ -8,19 +8,25 @@ The shared numerical contract is `../spec/synaptic_abi_v1.json`. See `../docs/SY
 |---|---|---|
 | C++17 | ✅ | `../cpp/include/reality_bridge/synapse.hpp` |
 | Python 3.10+ | ✅ CI tested | `../python/reality_bridge/synapse.py` |
+| Rust 2021+ | ✅ CI tested | `cosmic_synapse/` |
 | JavaScript | ✅ | `javascript/synapse.mjs` |
 | TypeScript | ✅ typings over JS core | `typescript/synapse.d.ts` |
 | Go | ✅ | `go/synapse.go` |
 | C# / .NET / Unity | ✅ | `csharp/Synapse.cs` |
 | Java 17+ | ✅ | `java/Synapse.java` |
+| Kotlin/JVM | ✅ Java-backed first-party facade | `kotlin/CosmicSynapse.kt` |
 | Swift | ✅ | `swift/Synapse.swift` |
 | C11 | ✅ | `c/synapse.h` |
 
-JavaScript, Go and C include committed golden-vector tests. C++ includes its own standalone CMake test/conformance target. Python tests are included in the repository's normal CI suite.
+The standalone Rust crate is `cosmic-synapse` v0.3.0 and is dependency-free. Repository CI runs both the existing `rust/` engine test suite and `cargo test --manifest-path bindings/cosmic_synapse/Cargo.toml --all-targets`.
 
-## Compatibility targets not yet committed as native ports
+Kotlin intentionally delegates its numerical operations to the canonical Java implementation in the same JVM package. This keeps Java and Kotlin behavior identical instead of maintaining two drifting copies of the same equations.
 
-Rust remains supported by the existing `../rust/` DSP/state crate, but the Synaptic Core Rust port is not committed. Kotlin can directly call the Java implementation on the JVM, but a native Kotlin source port is not committed. Zig, Lua, Ruby, PHP, Julia, Dart/Flutter, Fortran, Nim and Free Pascal are contract targets rather than first-party ports in this revision.
+JavaScript, Go and C include committed golden-vector tests. C++ includes its own standalone CMake test/conformance target. Python and Rust Synaptic Core tests run in the repository's normal CI suite.
+
+## Additional contract targets
+
+Zig, Lua, Ruby, PHP, Julia, Dart/Flutter, Fortran, Nim and Free Pascal remain valid Synaptic Core Contract v1 targets, but are not marked as maintained first-party source ports in this revision.
 
 A language is not marked implemented merely because the contract can be ported to it.
 
