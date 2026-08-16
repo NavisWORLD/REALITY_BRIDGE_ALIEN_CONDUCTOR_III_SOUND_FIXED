@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions are welcome when they preserve the project's central rule: **do not make the interface claim more than the implementation measures or computes.**
+Contributions and technical feedback are welcome when they preserve the project's central rule: **do not make the interface claim more than the implementation measures or computes.**
 
 ## Before submitting
 
@@ -8,19 +8,15 @@ Contributions are welcome when they preserve the project's central rule: **do no
 2. Label inference as inference; expose confidence where meaningful.
 3. Keep artistic macro names separate from scientific claims.
 4. Do not add automatic network upload of user microphone/media data.
-5. Do not vendor proprietary SDKs or signing credentials.
+5. Do not vendor proprietary SDKs, copyrighted samples without rights, or signing credentials.
 6. Add or update tests for DSP, state logic and integration behavior.
 
-Run:
+## Rights boundary for new contributions
 
-```bash
-cd python && python -m pip install -e '.[test]' && pytest -q
-cd ..
-cmake -S cpp -B build/cpp -DRB_BUILD_SHARED=ON -DRB_BUILD_TESTS=ON
-cmake --build build/cpp
-ctest --test-dir build/cpp --output-on-failure
-python tools/reconstruct_standalone.py
-node tools/audit_html.mjs
-```
+The historical `v0.2.0` generation was distributed under Apache-2.0. Those historical rights remain intact.
 
-By intentionally submitting a contribution, you agree it may be licensed under Apache-2.0 as described by the repository license.
+Beginning 2026-08-16, the current protected generation is not accepting outside copyrightable code, documentation, audio assets, designs, or other substantive authorship for incorporation unless Cory Shane Davis and the contributor first execute a written contribution, assignment, or licensing agreement sufficient to establish the rights required for incorporation and future licensing.
+
+Opening a pull request does not transfer copyright ownership and does not grant the project additional rights beyond those independently provided by law or a separate written agreement. Issues, bug reports, test results, compatibility reports, and non-copyrightable factual feedback are welcome.
+
+See `LICENSE` and `LICENSE_HISTORY.md` before submitting material.
