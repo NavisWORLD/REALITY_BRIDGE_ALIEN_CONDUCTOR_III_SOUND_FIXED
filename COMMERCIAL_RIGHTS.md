@@ -1,11 +1,23 @@
-# Commercial Rights & DOI Notice
+# Commercial Rights and Provenance Notice
 
-Copyright © 2026 Cory Davis / NavisWORLD.
+Copyright © 2026 Cory Shane Davis / NavisWORLD.
 
-Cory-owned original material not governed by another controlling license is available for noncommercial use under PolyForm Noncommercial 1.0.0. Commercial use requires a separate signed agreement with Cory Davis / NavisWORLD. Hiring or contracting alone does not transfer ownership or commercial rights unless a signed agreement expressly grants them.
+## Current protected generation
 
-Related COSMOS/CST research: DOI 10.5281/zenodo.17574447 — https://zenodo.org/records/17574447
+Newly authored or materially revised Cory-owned material distributed under the current repository `LICENSE` on or after 2026-08-16 is rights-reserved. Public visibility is not a general commercial or noncommercial reuse grant.
 
-Third-party material and earlier versions remain governed by their valid existing licenses. Prior MIT, Apache, GPL, Creative Commons, or other grants are not revoked.
+Commercial products, paid deployments, OEM integrations, hosted services, commercial research and development, commercial AI/ML training or model development, commercial sample/preset products, or other commercial exploitation of currently covered material require a separate written agreement signed by Cory Shane Davis.
 
-Commercial licensing: contact @NavisWORLD.
+Hiring, contracting, collaboration, repository access, a fork, a download, a pull request, email, direct message, or verbal discussion does not by itself transfer ownership or grant additional commercial rights.
+
+## Historical permissions remain historical
+
+The `v0.2.0` release and earlier copies validly distributed under Apache-2.0 retain the rights granted by Apache-2.0. The current policy does not revoke those grants. See `LICENSE_HISTORY.md` for the exact pre-boundary commit.
+
+## IP boundary
+
+No new patent license is granted by the current rights reservation. Copyright protects covered original expression, not abstract ideas, systems, algorithms, methods, or discoveries. Third-party materials remain subject to their own rights and licenses.
+
+Related COSMOS/CST research provenance: DOI `10.5281/zenodo.17574447`.
+
+Commercial licensing: Cory Shane Davis / @NavisWORLD.
