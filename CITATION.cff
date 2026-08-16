@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: "Reality Bridge: Cosmic Conductor Engine"
-message: "If you use this software, please cite the repository and the archived release when one is available."
+message: "If you reference this software, cite the repository and use the rights terms governing the exact version or copy. See LICENSE and LICENSE_HISTORY.md."
 type: software
 authors:
   - family-names: Davis
@@ -9,4 +9,3 @@ repository-code: "https://github.com/NavisWORLD/REALITY_BRIDGE_ALIEN_CONDUCTOR_I
 url: "https://github.com/NavisWORLD/REALITY_BRIDGE_ALIEN_CONDUCTOR_III_SOUND_FIXED"
 version: 0.2.0
 date-released: 2026-08-12
-license: Apache-2.0
