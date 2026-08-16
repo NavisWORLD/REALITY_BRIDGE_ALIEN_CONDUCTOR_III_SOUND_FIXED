@@ -8,7 +8,7 @@ version = "0.3.0"
 description = "Host-neutral musical state, Media DNA, Synaptic Core, MIDI and native bridge for Reality Bridge Cosmic Conductor Engine"
 readme = "README.md"
 requires-python = ">=3.10"
-license = {text = "Apache-2.0"}
+license = {text = "Cory Davis Audio / Neural Instrument Research Source Rights Reservation v1.0 - see repository LICENSE and LICENSE_HISTORY.md"}
 authors = [{name="Cory Davis"}]
 keywords = ["music", "midi", "generative-music", "web-audio", "dsp", "synaptic", "cosmic-conductor"]
 
