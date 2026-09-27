@@ -2,7 +2,7 @@
 
 ### SING INTO IT. STRUM IT. FEED IT MEDIA. SEND IT MIDI. EMBED THE CORE. TEACH THE MACHINE.
 
-**Cosmic Conductor Engine** is the source-available evolution of Reality Bridge Alien Conductor III: a handheld-first musical engine that turns human gesture, voice, media and control signals into playable musical structure.
+**Cosmic Conductor Engine** is the open-source evolution of Reality Bridge Alien Conductor III: a handheld-first musical engine that turns human gesture, voice, media and control signals into playable musical structure.
 
 ```text
 VOICE / GUITAR / TOUCH / MIDI / AUDIO / VIDEO
@@ -29,24 +29,13 @@ VOICE / GUITAR / TOUCH / MIDI / AUDIO / VIDEO
 
 The six named macros are artistic musical controls, not claims that the program measures literal physical gravity, biological life or thermodynamic entropy.
 
-## 🛡️ Rights and provenance first
+## Open-source rights and provenance
 
 Copyright © 2026 Cory Shane Davis / NavisWORLD.
 
-**Current rights boundary:** newly authored or materially revised Cory-owned material distributed under the current `LICENSE` on or after **2026-08-16** is governed by the **Cory Davis Audio / Neural Instrument Research Source Rights Reservation v1.0** unless a file expressly states different terms.
+Upon adoption, original Cory-owned code and documentation in new releases incorporating [Apache License 2.0](LICENSE) may be used, modified, redistributed, and used commercially under Apache-2.0. The original copyright holder retains authorship; third-party runtimes, recordings, samples and weights retain their own terms.
 
-Public visibility is not a general reuse license for that covered current material. Commercial products, hosted services, OEM integration, commercial AI/ML development, commercial redistribution, derivative implementations based on protected expression, and other commercial exploitation require separate written authorization where the current `LICENSE` states so.
-
-**Historical boundary:** the published `v0.2.0` generation and repository state through commit `f8337c71f77edc1fe37da0636ca68c4a41abf516` were distributed under Apache-2.0. Valid Apache-2.0 rights for those historical copies remain intact. They are not revoked or rewritten.
-
-See:
-
-- [`LICENSE`](LICENSE) - current prospective rights reservation
-- [`LICENSE_HISTORY.md`](LICENSE_HISTORY.md) - exact historical licensing boundary
-- [`COMMERCIAL_RIGHTS.md`](COMMERCIAL_RIGHTS.md) - commercial licensing path
-- [`CORY_DAVIS_IP_AND_ACCESS_NOTICE.md`](CORY_DAVIS_IP_AND_ACCESS_NOTICE.md) - IP/access notice
-
-Copyright protects original expression, not abstract ideas, systems, algorithms, mathematical principles, or methods by themselves. Third-party code, frameworks, SDKs, JUCE, platform toolchains, samples, models, and other materials remain under their own licenses and terms.
+The original v0.2.0 Apache-2.0 release remains under its historical license, while intervening source-available versions retain their historical rights. See [LICENSE_HISTORY.md](LICENSE_HISTORY.md), [COMMERCIAL_RIGHTS.md](COMMERCIAL_RIGHTS.md), and [NOTICE](NOTICE).
 
 ## 📦 Historical v0.2.0 packaged edition
 
