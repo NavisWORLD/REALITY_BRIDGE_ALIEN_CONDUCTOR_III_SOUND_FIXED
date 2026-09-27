@@ -25,3 +25,7 @@ Third-party code, dependencies, frameworks, SDKs, samples, datasets, models, pub
 ## Purpose
 
 The purpose of this record is provenance and clarity: preserve the old permissions exactly as they existed while making the rights governing new generations explicit.
+
+## Prospective open-source restoration (2026-09-26)
+
+Once the new root Apache-2.0 LICENSE is adopted, Cory-owned original material distributed in that generation is licensed Apache-2.0 except individually marked components. Historic Apache-2.0 grants and intervening source-available generations retain their original scope. Third-party media, models, vendor SDKs and recordings are not automatically relicensed.
