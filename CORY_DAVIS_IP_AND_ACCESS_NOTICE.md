@@ -1,3 +1,5 @@
+> **2026-09-26 transition:** New Apache-2.0 root licensing for new Cory-owned material supersedes this notice's older source-available restrictions only as to licensed material. Historic and third-party grants remain intact.
+
 # Cory Davis / NavisWORLD — Intellectual Property and Access Notice
 
 **Effective date:** 2026-08-14
@@ -6,7 +8,7 @@ Copyright © 2026 Cory Davis / NavisWORLD. All rights reserved in original mater
 
 This notice applies only to original copyrightable material owned by Cory Davis / NavisWORLD that is not already subject to another license. It does not relicense third-party material or revoke rights validly granted under an earlier license for an earlier copy or version.
 
-Public availability permits inspection, evaluation, citation, and the limited uses GitHub's Terms of Service or applicable law necessarily permit. Except for those limited rights, no permission is granted to copy, modify, distribute, publish, sublicense, sell, commercialize, host as a service, incorporate into another product, create derivative works from, or otherwise exploit covered original material. No permission is granted for commercial AI/ML training, fine-tuning, retrieval, evaluation, distillation, synthetic-data, embedding, or model-development use except where applicable law independently permits it or a separate written agreement expressly authorizes it.
+New Cory-owned original material published with the revised Apache-2.0 root LICENSE permits commercial and noncommercial reuse, modification, and redistribution in accordance with that license. No additional written authorization is required for granted uses. Third-party samples, model weights, private data, vendor SDKs, media and separately marked materials are not relicensed.
 
 Any additional authorization must be in a separate written contract identifying the material and permitted scope and signed by Cory Davis and the counterparty. Email, DMs, issues, pull requests, stars, forks, downloads, verbal statements, or silence do not by themselves constitute additional permission. Cory Davis may require physical, in-person execution as a condition of granting permission.
 
